@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="FR">
+
+<head>
+	<div th:replace="fragments :: header"></div>
+</head>
+
+<body>
+	<div class="page-wrapper chiller-theme toggled">
+		<a id="show-sidebar" class="btn btn-sm btn-dark" href="#"> <i class="fas fa-bars"></i>
+		</a>
+		
+		<!-- sidebar-wrapper  -->
+		<div th:replace="fragments :: admin-sidebar"></div>
+		
+		<main class="page-content">
+			<div class="container-fluid" style="margin-top: 5%;">
+				<div class="">
+					<p class="h2 text-center text-dark text-uppercase font-weight-bold">Statistiques
+					</p>
+					<hr class="line-seprate">
+					<section class="statistic statistic2">
+						<div class="container">
+							<div class="row">
+								<a href="/admin/restaurant" class="col-md-6 col-lg-3">
+									<div class="statistic__item statistic__item--green">
+										<h2 class="number" th:text="${nRestaus}"></h2>
+										<span class="desc">Restaurant</span>
+										<div class="icon">
+											<i class="zmdi zmdi-accounts"></i>
+										</div>
+									</div>
+								</a>
+								<a href="/admin/ville" class="col-md-6 col-lg-3">
+									<div class="statistic__item statistic__item--orange">
+										<h2 class="number" th:text="${nVilles}"></h2>
+										<span class="desc">Ville</span>
+										<div class="icon">
+											<i class="zmdi zmdi-group-work"></i>
+										</div>
+									</div>
+								</a> 
+								<a href="/admin/zone" class="col-md-6 col-lg-3">
+									<div class="statistic__item statistic__item--blue">
+										<h2 class="number" th:text="${nZones}"></h2>
+										<span class="desc">Zone</span>
+										<div class="icon">
+											<i class="zmdi zmdi-check"></i>
+										</div>
+									</div>
+								</a> 
+								<a href="/admin/serie" class="col-md-6 col-lg-3">
+									<div class="statistic__item statistic__item--red">
+										<h2 class="number" th:text="${nSeries}"></h2>
+										<span class="desc">Serie</span>
+										<div class="icon">
+											<i class="zmdi zmdi-settings"></i>
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="card-body container-fluid">
+								<div class="row">
+									<div class="col-sm-6 mb-2">
+										<canvas id="myChart" width="100" height="100"></canvas>
+									</div>
+									<div class="col-sm-6 mb-2">
+										<canvas id="byYear" width="100" height="100"></canvas>
+
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-sm-6 mb-2">
+
+									</div>
+									<div class="col-sm-6 mb-2">
+
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</section>
+				</div>
+			</div>
+
+
+
+
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+	<!-- Footer -->
+	<div th:insert="fragments :: footer"></div>
+</body>
+
+</html>

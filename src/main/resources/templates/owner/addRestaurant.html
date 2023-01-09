@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="FR">
+
+<head>
+	<div th:replace="fragments :: header"></div>
+</head>
+
+<body>
+	<div class="page-wrapper chiller-theme toggled">
+		<a id="show-sidebar" class="btn btn-sm btn-dark" href="#"> <i class="fas fa-bars"></i>
+		</a>
+		<!-- sidebar-wrapper  -->
+		<div th:replace="fragments :: owner-sidebar"></div>
+		<!-- sidebar-wrapper  -->
+		<main class="page-content">
+			<div class="container-fluid" id="main-content">
+				<h4 class="mt-4 text-center">Nouveau restaurant</h4>
+				<hr />
+				<form style="padding: 20px;" class="login-form" th:action="@{/owner/addRestaurant}"
+					enctype="multipart/form-data" method="post">
+					<div class="mb-1 row">
+						<label for="nom" class="col-sm-2 col-form-label">Nom :</label>
+						<div class="col-sm-10">
+							<input type="text" name="nom" class="form-control" id="nom" />
+						</div>
+					</div>
+					<div class="mb-1 row">
+						<label for="adresse" class="col-sm-2 col-form-label">Adresse :</label>
+						<div class="col-sm-10">
+							<input type="text" name="adresse" r class="form-control" id="adresse" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<label for="ville" class="col-sm-2 col-form-label">Ville:</label>
+							<div class="col-sm-10">
+								<select class="form-control" id="ville">
+								<option selected>Choisir ville</option>
+									<option th:each="ville: ${villes}" th:text="${ville.nom}" th:value="${ville.id}">
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="col">
+							<label for="lat" class="col-sm-2 col-form-label" disabled="">Zone:</label>
+							<div class="col-sm-10">
+								<select name="zone" class="form-control" id="zone">
+								
+								</select>
+							</div>
+						</div>
+						<div class="col">
+							<label for="lat" class="col-sm-2 col-form-label">Serie:</label>
+							<div class="col-sm-10">
+								<select name="serie" class="form-control" id="serie">
+								<option selected>Choisir serie</option>
+									<option th:each="serie: ${series}" th:text="${serie.nom}" th:value="${serie.id}">
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<label for="lat" class="col-sm-2 col-form-label">Specialités</label>
+							<div class="col-sm-10">
+								<select name="speciality" class="form-control" id="serie">
+								<option selected>Choisir specialite</option>
+									<option th:each="specialitie: ${specialities}" th:text="${specialitie.nom}"
+										th:value="${specialitie.id}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<label for="lat" class="col-sm-2 col-form-label">Latitude</label>
+							<div class="col-sm-10">
+								<input type="number" step="any" name="lat" class="form-control" id="lat" />
+							</div>
+						</div>
+						<div class="col">
+							<label for="longs" class="col-sm-2 col-form-label">Longitude</label>
+							<div class="col-sm-10">
+								<input type="number" step="any" name="longs" class="form-control" id="longs" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<label for="heure_op" class="col-sm-2 col-form-label">Ouvre</label>
+							<div class="col-sm-10">
+								<input type="time" name="heure_op" required="required" class="form-control"
+									id="heure_op" />
+							</div>
+						</div>
+						<div class="col">
+							<label for="heure_cl" class="col-sm-2 col-form-label">Ferme</label>
+							<div class="col-sm-10">
+								<input type="time" name="heure_cl" required="required" class="form-control"
+									id="heure_cl" />
+							</div>
+						</div>
+						<div class="col">
+							<label for="week" class="col-sm-2 col-form-label">Weekend</label>
+							<div class="col-sm-10 form-check-inline form-check" name="week" value="TRUE">
+								<input class="form-check-input" type="radio" name="week"
+									id="flexRadioDefault1">
+								<label class="form-check-label" for="flexRadioDefault1">
+									Oui
+								</label>
+							</div>
+							<div class="col-sm-10 form-check-inline form-check" name="week" value="False">
+								<input class="form-check-input" type="radio" name="week"
+									id="flexRadioDefault1">
+								<label class="form-check-label" for="flexRadioDefault1">
+									Non
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class=" row">
+						<label for="image" class="col-sm-2 col-form-label">Image : </label>
+						<div class="col-sm-10">
+							<input class="form-control" name="photos" type="file" id="image" multiple>
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-sm-2 col-form-label"></label>
+						<div class="col-sm-4">
+							<input class="btn btn-block btn-success" type="submit" value="Save">
+						</div>
+					</div>
+				</form>
+			</div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+	<!-- Footer -->
+	<div th:insert="fragments :: footer"></div>
+</body>
+
+</html>

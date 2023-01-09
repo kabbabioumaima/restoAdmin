@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="FR">
+
+<head>
+	<div th:replace="fragments :: header"></div>
+</head>
+
+<body>
+	<div class="page-wrapper chiller-theme toggled" style="background-color: white;">
+		<a id="show-sidebar" class="btn btn-sm btn-dark" href="#"> <i class="fas fa-bars"></i>
+		</a>
+		<!-- sidebar-wrapper  -->
+		<div th:replace="fragments :: owner-sidebar"></div>
+		<!-- sidebar-wrapper  -->
+		<main class="page-content">
+			<div class="container-fluid" id="main-content">
+				<h4 class="mt-4 text-center">Liste des restaurants</h4>
+				<hr />
+				<div class="table table-responsive">
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Images</th>
+								<th scope="col">Nom</th>
+								<th scope="col">Ouvre</th>
+								<th scope="col">Ferme</th>
+								<th scope="col">Etat</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="restaurant : ${restaurants}">
+								<td th:text="${restaurant.id}"></td>
+								<td>
+									<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+										<div class="carousel-inner">
+											<div class="carousel-item active" th:each="image : ${restaurant.photos}">
+												<img th:src="${'data:image/jpeg;base64,'+{image.image}}" class="d-block"
+													height="70px" width="70px" alt="..." />
+											</div>
+										</div>
+									</div>
+								</td>
+								<td th:text="${restaurant.nom}"></td>
+								<td th:text="${restaurant.heure_op}"></td>
+								<td th:text="${restaurant.heure_cl}"></td>
+								<td th:text="${restaurant.etat.name}"></td>
+								<td>
+									<button th:href="@{/owner/deleterestaurant/{id}(id=${restaurant.id})}" type="button"
+										class="btn btn-danger btn-sm" data-bs-toggle="confirmDelete">Supprimer</button>
+									<button class="btn btn-primary btn-sm" data-toggle="modal"
+										th:attr="data-target=${'#addImage'+restaurant.id}" data-row="${restaurant}">Add
+										image</button>
+
+									<div class="modal fade" th:attr="id=${'addImage' + restaurant.id}"
+										data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="staticBackdropLabel">Ajouter des images
+													</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form class="form"
+														th:action="@{/owner/addImages/{id}(id=${restaurant.id})}"
+														enctype="multipart/form-data" method="post">
+														<input class="form-control" name="photos" type="file" id="image"
+															multiple>
+														<button class="btn btn-block btn-success"
+															type="submit">Confirmer</button>
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary btn-sm"
+														data-bs-dismiss="modal">Cancel</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+	<!-- Footer -->
+	<div th:insert="fragments :: footer"></div>
+</body>
+
+</html>

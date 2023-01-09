@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="FR">
+
+<head>
+	<div th:replace="fragments :: header"></div>
+</head>
+
+<body>
+	<div class="page-wrapper chiller-theme toggled">
+		<a id="show-sidebar" class="btn btn-sm btn-dark" href="#"> <i class="fas fa-bars"></i>
+		</a>
+		<div th:replace="fragments :: admin-sidebar"></div>
+		<!-- sidebar-wrapper  -->
+		<main class="page-content">
+			<div class="container-fluid">
+				<div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Erreur</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p>Impossible de supprimer cette restaurant</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card bg-white">
+					<div class="card-header card-color">
+						<p class="h2 text-center text-uppercase font-weight-bold pt-2">Gestion des restaurants</p>
+					</div>
+
+
+					<div class="card-body container-fluid">
+
+						<div class="row table-responsive m-3 rounded">
+							<table id="trestaurant" class="table table-hover w-100">
+								<thead>
+									<tr class="text-uppercase bg-light  w-100">
+										<th scope="col">Id</th>
+										<th scope="col">Images</th>
+										<th scope="col">Nom</th>
+										<th scope="col">Adresse</th>
+										<th scope="col">Lat</th>
+										<th scope="col">longs</th>
+										<th scope="col">rank</th>
+										<th scope="col">ouvre</th>
+										<th scope="col">ferme</th>
+										<th scope="col">week</th>
+										<th scope="col">serie</th>
+										<th scope="col">ville</th>
+										<th scope="col">zone</th>
+										<th scope="col">Actions</th>
+									</tr>
+								</thead>
+								<tbody id="table-content">
+									<tr th:each="restaurant : ${restaurants}">
+										<td th:text="${restaurant.id}"></td>
+										<td>
+											<div id="carouselExampleControls" class="carousel slide"
+												data-bs-ride="carousel">
+												<div class="carousel-inner">
+													<div class="carousel-item active"
+														th:each="image : ${restaurant.photos}">
+														<img th:src="${'data:image/jpeg;base64,'+{image.image}}"
+															class="d-block" height="70px" width="70px" alt="..." />
+													</div>
+												</div>
+											</div>
+										</td>
+										<td th:text="${restaurant.nom}"></td>
+										<td th:text="${restaurant.adresse}"></td>
+										<td th:text="${restaurant.lat}"></td>
+										<td th:text="${restaurant.longs}"></td>
+										<td th:text="${restaurant.rank}"></td>
+										<td th:text="${restaurant.heure_op}"></td>
+										<td th:text="${restaurant.heure_cl}"></td>
+										<td th:text="${restaurant.week}"></td>
+										<td th:text="${restaurant.serie.nom}"></td>
+										<td th:text="${restaurant.zone.ville.nom}"></td>
+										<td th:text="${restaurant.zone.nom}"></td>
+										<td>
+											<a th:href="@{/admin/deleteRestaurant/{id}(id=${restaurant.id})}"
+												type="button" class="btn btn-danger btn-sm">Supprimer</a>
+											<a th:href="@{/admin/validateRestaurant/{id}(id=${restaurant.id})}"
+												type="button" class="btn btn-success btn-sm"
+												th:if="${restaurant.etat.name == 'PENDING' or  restaurant.etat.name == 'NOT_VALIDATED' }">Valider</a>
+											<a th:href="@{/admin/unvalidateRestaurant/{id}(id=${restaurant.id})}"
+												type="button" class="btn btn-warning btn-sm"
+												th:if="${restaurant.etat.name == 'VALIDATED' }">Invalider</a>
+
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</main>
+		<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+	<!-- Footer -->
+	<div th:insert="fragments :: footer"></div>
+</body>
+
+</html>
